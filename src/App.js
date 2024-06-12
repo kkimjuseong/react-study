@@ -1,11 +1,14 @@
 import './App.css';
 import React from "react";
+import Hello from './components/Hello';
+import Bye from "./components/Bye";
+import Greet from "./components/Greet";
 
 function App() {
 
     // jsx 문법
     // const $h2 = React.createElement('h2', null, '방가방가');
-    const $h2 = <h2>방가방가 우리친구 햄토리</h2>
+    // const $h2 = <h2>방가방가 우리친구 햄토리</h2>
 
     // jsx 규칙
     // 1. return 태그안에있는 태그는 반드시 하나의 태그로 묶여야함
@@ -15,19 +18,13 @@ function App() {
     // 5. 변수값이나 함수를 출력할 때는 {}로 감싸면 된다.
 
 
-    const hello = '안녕하세요';
     return (
         <>
-            <div className="App">
-                <h1>{hello}</h1>
-                {$h2}
-            </div>
-            <div className='noname'>
-                <input type="text" />
-                <label htmlFor=""></label>
-            </div>
+            <Hello/>
+            <Greet/>
+            <Bye/>
         </>
-);
+    );
 }
 
 export default App;
