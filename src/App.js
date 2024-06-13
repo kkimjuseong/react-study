@@ -1,7 +1,7 @@
 import './App.css';
 import React from "react";
 import ExpenseList from "./components/expenses/ExpenseList";
-import Greet from "./components/Greet";
+import Counter from "./components/practice/Counter";
 
 
 const App = () => {
@@ -27,6 +27,7 @@ const App = () => {
 
     return (
         <>
+            <Counter/>
             <ExpenseList expenses={expenses} />
         </>
     );
