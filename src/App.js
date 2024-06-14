@@ -28,9 +28,9 @@ const App = () => {
     };
 
     // 목표를 삭제하는 함수
-    const deleteGoalHandler = (userInput) => {
+    const deleteGoalHandler = (goalsId) => {
         setGoals((prevGoals) => {
-            return prevGoals.filter(goal => goal.id !== userInput);
+            return prevGoals.filter(goal => goal.id !== goalsId);
         });
     };
 
