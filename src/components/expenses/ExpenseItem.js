@@ -18,16 +18,6 @@ const ExpenseItem = ({ date, title, price: exPrice }) => {
     // 원화 표기법으로 변환
     const formattedPrice = new Intl.NumberFormat('ko-KR').format(exPrice);
 
-    // 이벤트 핸들러 선언
-    const clickHandler = e => {
-        /*
-            useState 가 관리하는 상태값은 반드시 setter 로만 변경해야 한다!!!!!!!!!!!!!!!!!!!!!!!
-            abc[0] = '하핳1234' 이처럼 직접 변경은 안돼~~~~~~~
-         */
-        setItemTitle('짜장면');
-
-    };
-
     console.log('렌더링 전');
     return (
         <Card className='expense-item'>
