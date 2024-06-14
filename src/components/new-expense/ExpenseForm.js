@@ -31,7 +31,7 @@ const ExpenseForm = ({onAdd}) => {
         // userInput.title = e.target.value; (X)
 
         // 객체나 배열상태로 관리되는 상태값은
-        // 상태변경시 새로운 객체나 배열을 setter에 전달해야 함
+        // 상태변경시 새로운 객체나 배열을 setter 에 전달해야 함
 
         setUserInput(prevUserInput => ({
             ...prevUserInput,
@@ -71,7 +71,10 @@ const ExpenseForm = ({onAdd}) => {
         console.log(userInput);
 
         // App.js가 내려보낸 함수를 호출
-        onAdd(userInput);
+        onAdd({
+            ...userInput,
+            date: new(userInput.date)
+        });
 
         // form input 비우기
         setUserInput({

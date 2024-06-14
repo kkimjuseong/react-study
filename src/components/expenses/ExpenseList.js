@@ -23,17 +23,16 @@ const ExpenseList = ({ expenses }) => {
     return (
         <div className="expenses">
             <ExpenseFilter onChangeFilter={onFilterChange} />
-
             {expenses
                 .filter(ex => ex.date.getFullYear().toString() === filteredYear.toString())
                 .map((ex) => (
-                    <ExpenseItem
-                        key={Math.random().toString()}
-                        title={ex.title}
-                        price={ex.price}
-                        date={ex.date}
-                    />
-                ))}
+                <ExpenseItem
+                    key={Math.random().toString()}
+                    title={ex.title}
+                    price={ex.price}
+                    date={ex.date}
+                />
+            ))}
         </div>
     );
 };
