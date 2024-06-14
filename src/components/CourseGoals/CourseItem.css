@@ -5,4 +5,11 @@
     color: white;
     padding: 1rem 2rem;
     cursor: pointer;
+    position: relative;
+}
+
+#btn{
+    position: absolute;
+    right: 10px;
+    background: white;
 }

@@ -27,13 +27,20 @@ const App = () => {
         ]);
     };
 
+    // 목표를 삭제하는 함수
+    const deleteGoalHandler = (userInput) => {
+        setGoals((prevGoals) => {
+            return prevGoals.filter(goal => goal.id !== userInput);
+        });
+    };
+
     return (
         <div>
             <section id="goal-form">
                 <CourseInput onAddGoal={addGoalHandler}/>
             </section>
             <section id="goals">
-                <CourseList items={goals} />
+                <CourseList items={goals} onDeleteGoal={deleteGoalHandler}/>
             </section>
         </div>
     );

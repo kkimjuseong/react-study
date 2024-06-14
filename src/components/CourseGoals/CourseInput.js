@@ -21,7 +21,7 @@ const CourseInput = ({ onAddGoal }) => {
     };
 
     return (
-        <form onClick={addGoalHandler}>
+        <form onSubmit={addGoalHandler}>
             <div className="form-control">
                 <label>나의 목표</label>
                 <input type="text" value={enteredValue} onChange={goalInputChangeHandler} />
