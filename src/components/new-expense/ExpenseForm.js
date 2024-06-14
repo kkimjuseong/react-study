@@ -117,6 +117,8 @@ const ExpenseForm = ({ onAdd }) => {
                 </div>
             </div>
             <div className="new-expense__actions">
+                {/*cancel 누르면 newExpense.js 에서 noContent 형태로 변경시켜야함*/}
+                <button type="submit">Cancel</button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
