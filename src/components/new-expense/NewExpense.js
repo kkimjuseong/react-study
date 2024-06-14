@@ -6,18 +6,17 @@ const NewExpense = ({ onSave }) => {
 
     const [isAddExpense, setIsAddExpense] = useState(false);
 
-    const startAddingExpenseHandler = () => {
-        setIsAddExpense(true);
-    };
+    const startAddingExpenseHandler = () => setIsAddExpense(true);
+    const stopAddingExpenseHandler = () => setIsAddExpense(false);
 
-    const newExpenseContent = <ExpenseForm onAdd={onSave}/>
+    let newExpenseContent = <button onClick={startAddingExpenseHandler}>새로운 지출 추가하기</button>
+    if (isAddExpense) newExpenseContent =  <ExpenseForm onAdd={onSave} onCancel={stopAddingExpenseHandler}/>
 
-    const noContent = <button onClick={startAddingExpenseHandler}>새로운 지출 추가하기</button>
 
     // 새로운 지출 추가하기 클릭하면 newExpenseContent 가 렌더링 되게 만들기
     return (
         <div className="new-expense">
-            {isAddExpense ? newExpenseContent : noContent}
+            {newExpenseContent}
         </div>
     );
 };

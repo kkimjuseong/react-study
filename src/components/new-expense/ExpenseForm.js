@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({ onAdd }) => {
+const ExpenseForm = ({ onAdd, onCancel }) => {
 
     // 입력칸에 있는 3개의 값을 각각의 상태값으로 관리
     // const [title, setTitle] = useState('');
@@ -27,11 +27,8 @@ const ExpenseForm = ({ onAdd }) => {
 
     // 제목이 입력되었을 때 발생하는 이벤트 핸들러
     const titleChangeHandler = e => {
-
-        // userInput.title = e.target.value; (X)
-
         // 객체나 배열상태로 관리되는 상태값은
-        // 상태변경시 새로운 객체나 배열을 setter에 전달해야 함
+        // 상태변경시 새로운 객체나 배열을 setter 에 전달해야 함
         setUserInput(prevUserInput => ({
             ...prevUserInput,
             title: e.target.value
@@ -58,15 +55,6 @@ const ExpenseForm = ({ onAdd }) => {
     // 폼 전송 이벤트 핸들러
     const submitHandler = e => {
         e.preventDefault(); // 폼 전송 방지
-        // console.log('폼이 전송됨!');
-
-        // 지출 내역 객체를 생성
-        // const newExpense = {
-        //   title,
-        //   price,
-        //   date
-        // };
-
         console.log(userInput);
 
         // App.js 에게 받은 함수를 호출
@@ -118,7 +106,7 @@ const ExpenseForm = ({ onAdd }) => {
             </div>
             <div className="new-expense__actions">
                 {/*cancel 누르면 newExpense.js 에서 noContent 형태로 변경시켜야함*/}
-                <button type="submit">Cancel</button>
+                <button type="submit" onClick={onCancel}>Cancel</button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
