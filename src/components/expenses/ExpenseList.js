@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ExpenseItem from './ExpenseItem';
 import ExpenseFilter from './ExpenseFilter';
 import './ExpenseList.css'
+import ExpenseChart from "../chart/ExpenseChart";
 
 const ExpenseList = ({expenses}) => {
     // 선택된 연도로 재 렌더링하기 위해 연도를 상태값으로 관리
@@ -39,6 +40,7 @@ const ExpenseList = ({expenses}) => {
     return (
         <div className="expenses">
             <ExpenseFilter onChangeFilter={onFilterChange}/>
+            <ExpenseChart/>
             {content}
         </div>
     );
