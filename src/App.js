@@ -19,10 +19,18 @@ const App = () => {
 
     const [goals, setGoals] = useState(DUMMY_DATA);
 
+    // 새로운 목표를 추가하는 함수
+    const addGoalHandler = (userInput) => {
+        setGoals((prevGoals) => [
+            ...prevGoals,
+            { id: `g${prevGoals.length + 1}`, text: userInput },
+        ]);
+    };
+
     return (
         <div>
             <section id="goal-form">
-                <CourseInput />
+                <CourseInput onAddGoal={addGoalHandler}/>
             </section>
             <section id="goals">
                 <CourseList items={goals} />
