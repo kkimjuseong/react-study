@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({onAdd}) => {
+const ExpenseForm = ({ onAdd }) => {
 
     // 입력칸에 있는 3개의 값을 각각의 상태값으로 관리
     // const [title, setTitle] = useState('');
@@ -31,8 +31,7 @@ const ExpenseForm = ({onAdd}) => {
         // userInput.title = e.target.value; (X)
 
         // 객체나 배열상태로 관리되는 상태값은
-        // 상태변경시 새로운 객체나 배열을 setter 에 전달해야 함
-
+        // 상태변경시 새로운 객체나 배열을 setter에 전달해야 함
         setUserInput(prevUserInput => ({
             ...prevUserInput,
             title: e.target.value
@@ -70,10 +69,10 @@ const ExpenseForm = ({onAdd}) => {
 
         console.log(userInput);
 
-        // App.js가 내려보낸 함수를 호출
+        // App.js 에게 받은 함수를 호출
         onAdd({
             ...userInput,
-            date: new(userInput.date)
+            date: new Date(userInput.date)
         });
 
         // form input 비우기
