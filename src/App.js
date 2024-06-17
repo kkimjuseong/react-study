@@ -19,28 +19,25 @@ const App = () => {
 
     const [goals, setGoals] = useState(DUMMY_DATA);
 
-    // 새로운 목표를 추가하는 함수
-    const addGoalHandler = (userInput) => {
-        setGoals((prevGoals) => [
-            ...prevGoals,
-            { id: `g${prevGoals.length + 1}`, text: userInput },
-        ]);
+    // CourseInput에게 전달할 함수
+    const addGoalHandler = (goalObject) => {
+        setGoals([...goals, goalObject]);
     };
 
-    // 목표를 삭제하는 함수
-    const deleteGoalHandler = (goalsId) => {
-        setGoals((prevGoals) => {
-            return prevGoals.filter(goal => goal.id !== goalsId);
-        });
+    // CouseItem에게 전달할 함수
+    const deleteGoalHandler = (id) => {
+        // console.log('id: ', id);
+        // goals.splice(goals.findIndex(g => g.id === id), 1);
+        setGoals(goals.filter(g => g.id !== id));
     };
 
     return (
         <div>
             <section id="goal-form">
-                <CourseInput onAddGoal={addGoalHandler}/>
+                <CourseInput onAdd={addGoalHandler} />
             </section>
             <section id="goals">
-                <CourseList items={goals} onDeleteGoal={deleteGoalHandler}/>
+                <CourseList items={goals} onDelete={deleteGoalHandler} />
             </section>
         </div>
     );

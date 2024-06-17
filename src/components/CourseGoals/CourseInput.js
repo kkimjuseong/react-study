@@ -2,29 +2,53 @@ import React, { useState } from 'react';
 import './CourseInput.css';
 import Button from '../UI/Button';
 
-// 목표 추가 폼 컴포넌트
-const CourseInput = ({ onAddGoal }) => {
+const CourseInput = ({ onAdd }) => {
 
-    // 입력된 목표를 저장하는 상태
-    const [enteredValue, setEnteredValue] = useState('');
+    // 목표 인풋에 입력한 값
+    const [enteredText, setEnteredText] = useState('');
 
-    // 입력 값 변경 시 호출되는 핸들러
-    const goalInputChangeHandler = (e) => {
-        setEnteredValue(e.target.value);
+    // 입력값 검증을 통과했는지 여부를 상태관리
+    const [isValid, setIsValid] = useState(false);
+
+    const formSubmitHandler = (e) => {
+        e.preventDefault();
+
+        if (enteredText.trim().length === 0) {
+            setIsValid(false);
+            return;
+        }
+
+        const newGoalObject = {
+            id: Math.random().toString(),
+            text: enteredText,
+        };
+        // console.log(newGoalObject);
+
+        onAdd(newGoalObject);
+
+        setEnteredText('');
     };
 
-    // 목표 추가 버튼 클릭 핸들러
-    const addGoalHandler = (e) => {
-        e.preventDefault();
-        onAddGoal(enteredValue);
-        setEnteredValue(''); // 입력 필드 초기화
+    const goalChangeHandler = (e) => {
+
+        const inputValue = e.target.value;
+
+        // 입력값 검증
+        if (inputValue.trim().length > 0) {
+            setIsValid(true);
+        }
+        setEnteredText(inputValue);
     };
 
     return (
-        <form onSubmit={addGoalHandler}>
+        <form onSubmit={formSubmitHandler}>
             <div className="form-control">
                 <label>나의 목표</label>
-                <input type="text" value={enteredValue} onChange={goalInputChangeHandler} />
+                <input
+                    type="text"
+                    onChange={goalChangeHandler}
+                    value={enteredText}
+                />
             </div>
             <Button type="submit">목표 추가하기</Button>
         </form>
