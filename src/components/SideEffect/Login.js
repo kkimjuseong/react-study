@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Card from '../UI/Card';
 import styles from './Login.module.css';
 import Button from '../UI/Button';
 
-const Login = ({ onLogin }) => {
-
-    console.log('렌더링 수행!');
+const Login = ({onLogin}) => {
 
     // 사용자가 입력한 이메일을 상태관리
     const [enteredEmail, setEnteredEmail] = useState('');
@@ -43,10 +41,19 @@ const Login = ({ onLogin }) => {
     };
 
     useEffect(() => {
-        console.log('useEffect call in Login.js');
-        setFormIsValid(
-            enteredPassword.trim().length > 6 && enteredEmail.includes('@')
-        );
+
+        const timer = setTimeout(() => {
+            console.log('useEffect call in Login.js');
+            setFormIsValid(
+                enteredPassword.trim().length > 6 && enteredEmail.includes('@')
+            );
+        }, 1000);
+
+        // clean up 함수는 컴포넌트가 업데이트 되거나 사라지기 전에 실행
+        return () => {
+            clearTimeout(timer);
+        };
+
     }, [enteredEmail, enteredPassword]);
 
     return (
