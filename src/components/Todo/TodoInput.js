@@ -19,6 +19,11 @@ const TodoInput = ({ onAdd }) => {
         setOpen(!open);
     };
 
+    const deleteButton = () => {
+      setOpen(false);
+    };
+
+
     return (
         <>
             {open && (
@@ -34,7 +39,7 @@ const TodoInput = ({ onAdd }) => {
                 </div>
             )}
 
-            <button className={`insert-btn ${open ? 'open' : ''}`} onClick={toggleForm}>
+            <button className={`insert-btn ${open ? 'open' : ''}`} onClick={toggleForm} onSubmit={deleteButton}>
                 <MdAdd />
             </button>
         </>
