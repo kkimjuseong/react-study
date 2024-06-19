@@ -25,3 +25,9 @@ $ npm start
 ## 추가 라이브러리 설치
 1. styled-components: 동적 css 처리를 도와주는 라이브러리
 - `$ npm install styled-components`
+
+2. bootstrap, reactstrap, : css 라이브러리
+- `$ npm install bootstrap reactstrap`
+
+3. sass : CSS 확장문법 라이브러리
+- `$ npm install sass`
