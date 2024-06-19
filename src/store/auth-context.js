@@ -7,6 +7,7 @@ import {createContext} from "react";
 const AuthContext = createContext(
     {
         isLoggedIn: false,
+        onLogout: () => {},  // 타입 기본 데이터를 넣으면 자동완성이 뜸
 
     }
 );

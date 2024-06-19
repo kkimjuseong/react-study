@@ -6,7 +6,7 @@ const MainHeader = ({onLogout}) => {
     return (
         <header className={styles['main-header']}>
             <h1>나의 리액트 페이지</h1>
-            <Navigation onLogout={onLogout} />
+            <Navigation />
         </header>
     );
 };
