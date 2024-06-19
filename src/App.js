@@ -3,6 +3,7 @@ import './App.css';
 import MainHeader from "./components/SideEffect/MainHeader";
 import Home from "./components/SideEffect/Home";
 import Login from "./components/SideEffect/Login";
+import AuthContext from "./store/auth-context";
 
 
 const App = () => {
@@ -43,13 +44,13 @@ const App = () => {
     }
 
     return (
-        <>
+        <AuthContext.Provider value={{isLoggedIn: isLoggedIn}}>
             <MainHeader onLogout={logoutHandler} />
             <main>
                 {isLoggedIn && <Home/>}
                 {!isLoggedIn && <Login onLogin={loginHandler}/>}
             </main>
-        </>
+        </AuthContext.Provider>
     );
 };
 
