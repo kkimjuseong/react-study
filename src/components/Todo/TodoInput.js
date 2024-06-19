@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdAdd } from "react-icons/md";
 import './scss/TodoInput.scss';
 
@@ -15,14 +15,23 @@ const TodoInput = ({ onAdd }) => {
         }
     };
 
+    // 엔터 키를 눌렀을 때 setOpen 을 토글하는 함수
+    const enterToggle = (e) => {
+        if (e.key === 'Enter' && e.target.tagName !== 'INPUT') {
+            setOpen((prevOpen) => !prevOpen);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', enterToggle);
+        return () => {
+            document.removeEventListener('keydown', enterToggle);
+        };
+    }, []);
+
     const toggleForm = () => {
         setOpen(!open);
     };
-
-    const deleteButton = () => {
-      setOpen(false);
-    };
-
 
     return (
         <>
@@ -39,7 +48,7 @@ const TodoInput = ({ onAdd }) => {
                 </div>
             )}
 
-            <button className={`insert-btn ${open ? 'open' : ''}`} onClick={toggleForm} onSubmit={deleteButton}>
+            <button className={`insert-btn ${open ? 'open' : ''}`} onClick={toggleForm}>
                 <MdAdd />
             </button>
         </>
