@@ -1,15 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, {forwardRef, useEffect, useRef} from 'react';
 
-const ResultModal = ({result, targetTime}) => {
-
-    const dialog = useRef();
-
-    useEffect(() => {
-        dialog.current.showModal();
-    }, []);
+const ResultModalComponent = ({ result, targetTime }, ref) => {
 
     return (
-        <dialog ref={dialog} className="result-modal">
+        <dialog ref={ref} className="result-modal">
             <h2>Your {result}!</h2>
             <p>The target time was <strong>{targetTime} seconds.</strong></p>
             <p>You stopped the timer with <strong>X seconds left.</strong></p>
@@ -19,5 +13,12 @@ const ResultModal = ({result, targetTime}) => {
         </dialog>
     );
 };
+
+
+// forwardRef 는 콜백으로 전달된 컴포넌트에 첫번째 파라미터로 props 를 전달하고
+// 두번째 파라미터에는 부모에게 받은 ref 를 전달한다.
+const ResultModal = forwardRef(ResultModalComponent);
+
+
 
 export default ResultModal;
