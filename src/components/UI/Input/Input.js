@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './Input.module.scss';
 
-const Input = ({ label }) => {
+const Input = ({ label , inputAttr }) => {
     return (
         <div className={styles.input}>
             <label>{label}</label>
-            <input />
+            <input {...inputAttr} />
         </div>
     );
 };
