@@ -6,7 +6,7 @@ import foodImg from '../../../assets/img/meals.jpeg'
 import HeaderCartButton from "./HeaderCartButton";
 
 
-const Header = () => {
+const Header = ({ onShowCart }) => {
 
     const {header, 'main-image': mainImage} = styles
 
@@ -14,7 +14,7 @@ const Header = () => {
         <>
             <header className={header}>
                 <h1>ReactMeals</h1>
-                <HeaderCartButton/>
+                <HeaderCartButton onShow={onShowCart}/>
             </header>
             <div className={mainImage}>
                 <img src={foodImg} alt='맛있어보임'/>
