@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Cart.module.scss';
-import CartModal from "./CartModal";
+import CartModal from './CartModal';
 
 const DUMMY_CART = [
     {
@@ -16,9 +16,7 @@ const DUMMY_CART = [
         price: 12000,
     },
 ];
-
-
-const Cart = ({onClose}) => {
+const Cart = ({ onClose }) => {
     const {
         'cart-items': cartItemStyle,
         total,
@@ -40,7 +38,7 @@ const Cart = ({onClose}) => {
                 <span>58,000원</span>
             </div>
             <div className={actions}>
-                <button onClick={onClose} className={btnAlt}>닫기</button>
+                <button className={btnAlt} onClick={onClose}>닫기</button>
                 <button className={button}>주문</button>
             </div>
         </CartModal>

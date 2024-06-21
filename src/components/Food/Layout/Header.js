@@ -2,22 +2,21 @@ import React from 'react';
 import styles from './Header.module.scss';
 
 // 정적 이미지 로딩
-import foodImg from '../../../assets/img/meals.jpeg'
-import HeaderCartButton from "./HeaderCartButton";
-
+import foodImage from '../../../assets/img/meals.jpeg';
+import HeaderCartButton from './HeaderCartButton';
 
 const Header = ({ onShowCart }) => {
 
-    const {header, 'main-image': mainImage} = styles
+    const { header, 'main-image': mainImage } = styles;
 
     return (
         <>
             <header className={header}>
                 <h1>ReactMeals</h1>
-                <HeaderCartButton onShow={onShowCart}/>
+                <HeaderCartButton onShow={onShowCart} />
             </header>
             <div className={mainImage}>
-                <img src={foodImg} alt='맛있어보임'/>
+                <img src={foodImage} alt="맛있어 보여~" />
             </div>
         </>
     );
