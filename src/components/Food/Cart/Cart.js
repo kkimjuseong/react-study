@@ -19,7 +19,9 @@ import CartItem from './CartItem';
 //   },
 // ];
 const Cart = ({ onClose }) => {
-    const { cartItems } = useContext(CartContext);
+    const { cartItems , totalPrice} = useContext(CartContext);
+
+    console.log(cartItems)
 
     const {
         'cart-items': cartItemStyle,
@@ -42,7 +44,8 @@ const Cart = ({ onClose }) => {
             </ul>
             <div className={total}>
                 <span>주문 총액</span>
-                <span>58,000원</span>
+                {/* 3자리 마다 . 을찍어주는 리액트 문법 Intl */}
+                <span>{new Intl.NumberFormat('ko-Kr').format(totalPrice)}원</span>
             </div>
             <div className={actions}>
                 <button

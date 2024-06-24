@@ -1,8 +1,10 @@
 import React, { useReducer, useState } from 'react';
 import CartContext from './Cart-context';
 
+// 중앙관리 상태값 (state)
 const defaultState = {
-    items: [], // 장바구니 배열
+    items: [],     // 장바구니 배열
+    totalPrice: 0, // 총액 상태값
 };
 
 // reducer: 여러가지 복잡한 상태관리를 단순화시키며 중앙집중화한다.
@@ -16,9 +18,15 @@ const cartReducer = (state, action) => {
 
     if (action.type === 'ADD') { // 장바구니 추가
         // 상태 업데이트 코드
+        // 장바구니 배열 상태 없데이트
+        const updatePartItems = [...state.items, action.value];
+
+        // 총액 상태 업데이트
+        const updatePrice = state.totalPrice + (action.value.price * action.value.amount);
 
         return {
-            items: [...state.items, action.value]
+            items: updatePartItems,
+            totalPrice: updatePrice
         }; // 새로운 상태
     } else if (action.type === 'REMOVE') { // 장바구니 제거
         return null; // 새로운 상태
@@ -39,16 +47,17 @@ const CartProvider = ({ children }) => {
         // console.log('장바구니에 데이터 추가! - ', item);
 
         // 액션함수는 지금 어떤 상태를 업데이트할지에 대한 액션이름과 값을 객체로 전달
-        // 이 객체는 reducer함수의 2번째 파라미터인 action에 전달됨!
-        dispatchCartAction({
+        // 이 객체는 reducer 함수의 2번째 파라미터인 action 에 전달됨!
+        dispatchCartAction ({
             type: 'ADD',
             value: item
         });
     };
 
-    // Provider가 실제로 관리할 상태들의 구체적인 내용들
+    // Provider 가 실제로 관리할 상태들의 구체적인 내용들
     const cartContext = {
         cartItems: cartState.items, // 상태값
+        totalPrice: cartState.totalPrice,
         addItem: addItemHandler, // 상태를 업데이트하는 함수
         removeItem: id => {}, // 상태를 업데이트하는 함수
     };
