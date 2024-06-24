@@ -1,22 +1,23 @@
-import React, {useContext} from 'react';
-
+import React, { useContext } from 'react';
 import styles from './CartItem.module.scss';
-import CartContext from "../../../store/Cart-context";
+import CartContext from '../../../store/Cart-context';
 
-const CartItem = ({cart}) => {
+const CartItem = ({ cart }) => {
+    const { addItem, removeItem } = useContext(CartContext);
 
-    const {addItem} = useContext(CartContext);
-    const cartAddHandler = e => {
-
+    const cartAddHandler = () => {
         const item = {
             ...cart,
             amount: 1,
         };
-
         addItem(item);
     };
 
-    const {name, price, amount} = cart;
+    const cartRemoveHandler = () => {
+        removeItem(cart.id);
+    };
+
+    const { name, price, amount } = cart;
 
     const {
         'cart-item': cartItem,
@@ -38,7 +39,7 @@ const CartItem = ({cart}) => {
                 </div>
             </div>
             <div className={actions}>
-                <button>−</button>
+                <button onClick={cartRemoveHandler}>−</button>
                 <button onClick={cartAddHandler}>+</button>
             </div>
         </li>

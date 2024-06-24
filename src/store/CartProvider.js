@@ -47,9 +47,30 @@ const cartReducer = (state, action) => {
             items: updatedItems,
             totalPrice: updatePrice
         }; // 새로운 상태
-    } else if (action.type === 'REMOVE') { // 장바구니 제거
-        return null; // 새로운 상태
+
+    } else if (action.type === 'REMOVE') {// 장바구니 제거
+
+        const id = action.value;
+        const existingItemIndex = state.items.findIndex(item => item.id === id);
+        const existingItems = [...state.items];
+        const existingItem = existingItems[existingItemIndex];
+
+        let updatedItems;
+        if (existingItem.amount === 1) {
+            updatedItems = existingItems.filter(item => item.id !== id);
+        } else {
+            existingItem.amount -= 1;
+            updatedItems = [...existingItems];
+        }
+
+        // 총액 상태 업데이트
+        const updatedPrice = state.totalPrice - existingItem.price;
+        return {
+            items: updatedItems,
+            totalPrice: updatedPrice,
+        };
     }
+
     return defaultState; // 새로운 상태
 };
 
@@ -73,12 +94,19 @@ const CartProvider = ({ children }) => {
         });
     };
 
+    const removeItemHandler = id => {
+        dispatchCartAction({
+            type: 'REMOVE',
+            value: id,
+        });
+    }
+
     // Provider 가 실제로 관리할 상태들의 구체적인 내용들
     const cartContext = {
         cartItems: cartState.items, // 상태값
         totalPrice: cartState.totalPrice, // 총액 상태값
         addItem: addItemHandler, // 상태를 업데이트하는 함수
-        removeItem: id => {}, // 상태를 업데이트하는 함수
+        removeItem: removeItemHandler, // 상태를 업데이트하는 함수
     };
 
     return <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>;
