@@ -19,7 +19,7 @@ const MainNavigation = () => {
                         <NavLink to='' className={activeFn} end>Home</NavLink>
                     </li>
                     <li>
-                        <NavLink to='products' className={activeFn} end>Products</NavLink>
+                        <NavLink to='events' className={activeFn} end>Events</NavLink>
                     </li>
                 </ul>
             </nav>
