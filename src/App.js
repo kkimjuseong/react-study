@@ -6,6 +6,7 @@ import ErrorPage from './components/RouteExample/pages/ErrorPage';
 import Events from "./components/RouteExample/pages/Events";
 import EventDetail from "./components/RouteExample/pages/EventDetail";
 import EventLayout from "./components/RouteExample/layout/EventLayout";
+import NewEvent from "./components/RouteExample/pages/NewEvent";
 
 // 라우터 설정
 const router = createBrowserRouter([
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
                           return jsonData;
                       }
                   },
-                  {path: ':eventId', element: <EventDetail/>},
+                  {path: ':eventId', element: <EventDetail />},
+                  {path : 'new', element: <NewEvent />}
               ]
             },
         ]

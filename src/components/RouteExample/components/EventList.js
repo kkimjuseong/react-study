@@ -1,8 +1,15 @@
 import React from 'react'
 import styles from './EventList.module.scss';
-import { Link } from "react-router-dom";
+import {Link, useLoaderData} from "react-router-dom";
 
 const EventList = ({ eventList }) => {
+
+    // loader data 는 loader 를 선언하는 페이지 밑에잇는 하위 컴포넌트 어디에서든 사용이 가능하다
+    // const eventList = useLoaderData(); pops 를 사용안하고 처럼 불러 올 수 있다.
+
+
+    const data = useLoaderData();
+    console.log("loader data", data);
 
     const {events, list, item, content} = styles;
 
