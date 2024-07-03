@@ -9,7 +9,6 @@ const EventList = ({ eventList }) => {
 
 
     const data = useLoaderData();
-    console.log("loader data", data);
 
     const {events, list, item, content} = styles;
 
@@ -20,11 +19,11 @@ const EventList = ({ eventList }) => {
                 {
                     eventList.map(ev => (
                         <li key={ev.id} className={item}>
-                            <Link to={ev.id.toString()}>
-                                <img src={ev.image} alt={ev.title} />
+                            <Link to={ev.id}>
+                                <img src={ev['img-url']} alt={ev.title} />
                                 <div className={content}>
                                     <h2>{ev.title}</h2>
-                                    <time>{ev.date}</time>
+                                    <time>{ev.startDate}</time>
                                 </div>
                             </Link>
                         </li>
