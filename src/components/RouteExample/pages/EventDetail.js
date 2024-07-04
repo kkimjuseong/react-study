@@ -1,19 +1,24 @@
-import React from 'react';
-import {useLoaderData, useParams} from "react-router-dom";
-import EventsNavigation from "../layout/EventsNavigation";
+import React, { useEffect, useState } from 'react';
+import { useLoaderData, useParams } from 'react-router-dom';
+import EventItem from "../components/EventItem";
 
 const EventDetail = () => {
 
-    const {eventId : id} = useParams()
+    const { eventId: id } = useParams();
+    const [ev, setEv] = useState({});
 
-    const data = useLoaderData();
+    useEffect(() => {
 
-    return (
-        <>
-            <h1>EventDetail Page</h1>
-            <p>Event ID: {id}</p>
-        </>
-    );
+        (async () => {
+            const response = await fetch(`http://localhost:8282/events/${id}`);
+            const json = await response.json();
+            console.log('json: ', json);
+            setEv(json);
+        })();
+
+    }, []);
+
+    return <EventItem event={ev} />
 };
 
 export default EventDetail;
