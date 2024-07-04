@@ -1,7 +1,6 @@
 import React from 'react';
-import {Link, useLoaderData} from 'react-router-dom';
+import {Link, useLoaderData, json} from 'react-router-dom';
 import EventList from "../components/EventList";
-import EventsNavigation from "../layout/EventsNavigation";
 
 
 const Events = () => {
@@ -31,6 +30,7 @@ export const loader = async () => {
 
     if (!response.ok) {
         const errorText = await response.text();
+        // react-router-dom 에서 제공하는 json 을 new Response 자리어 넣으면 JSON.stringify 를 사용 안해도 된다.
         throw new Response(
             JSON.stringify({ message: errorText }),
         {

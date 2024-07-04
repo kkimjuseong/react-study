@@ -8,7 +8,7 @@ const ErrorPage = () => {
     // 에러가 발생했을 때 throw에 전달한 객체를 읽는 방법
     const error = useRouteError();
 
-    let errorMessage;
+    let errorMessage = '서버와의 연결이 원활하지 않습니다.';
 
     if (error.status === 400) {
         errorMessage = JSON.parse(error.data).message;
