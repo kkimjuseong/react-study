@@ -9,7 +9,7 @@ const EventSkeleton = () => {
                     Array.from(new Array(4)).map(
                         (_, index) => (
                             <div
-                            f    className={styles.skeleton}
+                                className={styles.skeleton}
                                 key={index}
                             >
                                 <div className={styles.imageSkeleton} />
