@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './EventItem.module.scss';
-import { Link } from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 const EventItem = ({ event }) => {
 
@@ -11,6 +11,27 @@ const EventItem = ({ event }) => {
         'start-date': date
     } = event;
 
+    const { eventId : id} = useParams()
+    const navigate = useNavigate();
+
+    const deleteHandler = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`http://localhost:8282/events/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id})
+        });
+
+        if (response.ok) {
+            navigate('/events');
+        } else {
+            alert('이벤트 삭제에 실패했습니다.');
+        }
+    }
+
     return (
         <article className={styles.event}>
             <img src={image} alt={title} />
@@ -19,7 +40,7 @@ const EventItem = ({ event }) => {
             <p>{description}</p>
             <menu className={styles.actions}>
                 <Link to="edit">Edit</Link>
-                <button>Delete</button>
+                <button onClick={deleteHandler}>Delete</button>
             </menu>
         </article>
     );
