@@ -17,6 +17,11 @@ const EventItem = ({ event }) => {
     const deleteHandler = async (e) => {
         e.preventDefault();
 
+        const confirmDelete = window.confirm('정말로 이 이벤트를 삭제하시겠습니까?');
+        if (!confirmDelete) {
+            return;
+        }
+
         const response = await fetch(`http://localhost:8282/events/${id}`, {
             method: 'DELETE',
             headers: {
