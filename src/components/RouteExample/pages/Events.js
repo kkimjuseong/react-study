@@ -1,82 +1,88 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useLoaderData, json} from 'react-router-dom';
-import EventList from "../components/EventList";
-import EventSkeleton from "../components/EventSkeleton";
+import React, { useEffect, useState } from 'react';
+import EventList from '../components/EventList';
+import EventSkeleton from '../components/EventSkeleton';
 
+// npm install loadsh
+import { debounce, throttle } from 'lodash';
 
 const Events = () => {
 
-    // loader 가 리턴한 데이터 받아오기
+    // loader가 리턴한 데이터 받아오기
     // const eventList = useLoaderData();
     // console.log(eventList);
 
 
     // 서버에서 가져온 이벤트 목록
-    const [events, setEvents] = useState([])
+    const [events, setEvents] = useState([]);
 
-    // 서버 로딩 상태 체크
-    const [loading, setLoading] = useState(false)
+    // 로딩 상태 체크
+    const [loading, setLoading] = useState(false);
 
+    // 현재 페이지 번호
+    const [currentPage, setCurrentPage] = useState(1);
 
     // 서버로 목록 조회 요청보내기
-    const loadEvents = async () => {
+    const loadEvents = async() => {
 
-        console.log('start loadng.....');
-        setLoading(true)
+        console.log('start loading...');
+        setLoading(true);
 
-        const response = await fetch('http://localhost:8282/events/page/1?sort=date');
+        const response = await fetch(`http://localhost:8282/events/page/${currentPage}?sort=date`);
         const events = await response.json();
+
         setEvents(events);
-        setLoading(false)
-        console.log('end loading!!')
-    }
+        setLoading(false);
+        console.log('end loading!!');
+    };
 
     // 초기 이벤트 1페이지 목록 가져오기
     useEffect(() => {
-        loadEvents()
+        loadEvents();
     }, []);
+
+    // 스크롤 핸들러
+    const scrollHandler = throttle(() => {
+        if (loading ||
+            window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight
+        ) {
+            return;
+        }
+        loadEvents();
+    }, 2000);
+
+    // 스크롤 이벤트 바인딩
+    useEffect(() => {
+        window.addEventListener('scroll', scrollHandler);
+
+        return () => {
+            window.removeEventListener('scroll', scrollHandler);
+            scrollHandler.cancel(); // 스로틀 취소
+        }
+    }, [currentPage, loading]);
 
     return (
         <>
             <EventList eventList={events} />
-            {loading && <EventSkeleton/>}
+            {loading && <EventSkeleton />}
         </>
     );
 };
 
 export default Events;
 
-
-
-
-
-
-// loader 를 app.js 로부터 아웃소싱
+// loader를 app.js로부터 아웃소싱
 // export const loader = async () => {
-//
-//
-//     // 이 페이지가 열릴때 자동으로 트리거가 되어 호출되는 함수
-//     // 이 함수에는 페이지가 열리자마자 해야할 일을 적을 수 있다.
-//
-//     const response = await fetch('http://localhost:8282/events/page/1?sort=date');
-//
-//     if (!response.ok) {
-//         const errorText = await response.text();
-//         // react-router-dom 에서 제공하는 json 을 new Response 자리어 넣으면 JSON.stringify 를 사용 안해도 된다.
-//         throw new Response(
-//             JSON.stringify({ message: errorText }),
-//         {
-//             status: response.status,
-//         }
-//         );
-//     }
-//     return response;    // ok 일 경우 events[]
-//
-//     // const jsonData = await response.json();
-//
-//     // loader 가 리턴한 데이터는 loader 를 선언한 컴포넌트와 그 하위 컴포넌트에서
-//     // 언제든 불러서 사용할 수 있다
-//     // console.log(jsonData)
-//
-//     // loader 에서 fetch 의 결과를 바로 리턴하면 알아서 json 을 추출해준다.
+
+//   const response = await fetch('http://localhost:8282/events/page/1?sort=date');
+
+//   if (!response.ok) {
+//     const errorText = await response.text();
+//     throw json(
+//       { message: errorText },
+//       {
+//         status: response.status
+//       }
+//     );
+//   }
+//   return response; // ok일 경우 events[]
 // };
