@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './EventForm.module.scss';
-import { useNavigate, Form } from 'react-router-dom';
+import {useNavigate, Form, redirect} from 'react-router-dom';
 
 const EventForm = ({ method, event={} }) => {
 
@@ -79,7 +79,7 @@ const EventForm = ({ method, event={} }) => {
     // method 옵션을 설정한다.
     return (
         <Form
-            method='post'
+            method={method}
             className={styles.form}
             // onSubmit={submitHandler}
             noValidate
@@ -138,3 +138,43 @@ const EventForm = ({ method, event={} }) => {
 };
 
 export default EventForm;
+
+// 서버에 갱신요청을 보내는 트리거함수
+// App.js에서 router에 설정
+export const action = async ({ request, params }) => {
+    // action 함수를 트리거하는 방법
+    // 1. form이 있는 EventForm으로 이동
+    // console.log('action함수 call!');
+
+    // console.log('req: ', request);
+
+    const formData = await request.formData();
+    // console.log(formData);
+
+    const payload = {
+        title: formData.get('title'),
+        desc: formData.get('description'),
+        imageUrl: formData.get('image'),
+        beginDate: formData.get('date'),
+    };
+
+    // console.log(payload);
+
+    let url = `http://localhost:8282/events`;
+    if (request.method === 'PATCH') {
+        url += `/${params.eventId}`;
+    }
+
+    console.log('info: ', { url, method: request.method });
+
+    const response = await fetch(url, {
+        method: request.method,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+    });
+
+    return redirect('/events');
+
+};

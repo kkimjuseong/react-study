@@ -4,10 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './components/RouteExample/layout/RootLayout';
 import ErrorPage from './components/RouteExample/pages/ErrorPage';
 import Events, { loader as eventListLoader } from './components/RouteExample/pages/Events';
-import EventDetail, { loader as eventDetailLoader } from './components/RouteExample/pages/EventDetail';
+import EventDetail, { loader as eventDetailLoader, action as deleteAction } from './components/RouteExample/pages/EventDetail';
 import EventLayout from './components/RouteExample/layout/EventLayout';
-import NewEvent, {action as saveAction} from './components/RouteExample/pages/NewEvent';
+import NewEvent from './components/RouteExample/pages/NewEvent';
 import EditPage from './components/RouteExample/pages/EditPage';
+import { action as manipulateAction }
+    from './components/RouteExample/components/EventForm';
 
 // 라우터 설정
 const router = createBrowserRouter([
@@ -34,16 +36,24 @@ const router = createBrowserRouter([
                         // EventDetail에서 loader를 사용하지 못하고 있음.
                         id: 'event-detail', // loader에게 ID 부여
                         children: [
-                            { index: true, element: <EventDetail /> },
-                            { path: 'edit', element: <EditPage /> },
+                            {
+                                index: true,
+                                element: <EventDetail />,
+                                action: deleteAction
+                            },
+                            {
+                                path: 'edit',
+                                element: <EditPage />,
+                                action: manipulateAction
+                            },
                         ]
                     },
-                    { path: 'new',
+                    {
+                        path: 'new',
                         element: <NewEvent />,
-                        // 서버에 갱신데이터 요청을 보낼 때 트리고
-                        action: saveAction
+                        // 서버에 갱신데이터요청을 보낼 때 트리거
+                        action: manipulateAction
                     },
-
                 ]
             },
         ]
@@ -58,6 +68,3 @@ const App = () => {
 };
 
 export default App;
-
-
-

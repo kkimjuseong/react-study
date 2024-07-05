@@ -26,7 +26,7 @@ export const loader = async () => {
     // 이 페이지가 열릴때 자동으로 트리거가 되어 호출되는 함수
     // 이 함수에는 페이지가 열리자마자 해야할 일을 적을 수 있다.
 
-    const response = await fetch('http://localhost:8282/events?sort=date');
+    const response = await fetch('http://localhost:8282/events/page/1?sort=date');
 
     if (!response.ok) {
         const errorText = await response.text();
