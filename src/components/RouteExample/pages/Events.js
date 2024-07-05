@@ -28,10 +28,15 @@ const Events = () => {
         setLoading(true);
 
         const response = await fetch(`http://localhost:8282/events/page/${currentPage}?sort=date`);
-        const events = await response.json();
+        const loadedEvents = await response.json();
 
-        setEvents(events);
+        const updatedEvents = [...events, ...loadedEvents];
+
+        setEvents(updatedEvents);
         setLoading(false);
+
+        // 로딩이 끝나면 페이지 번호를 1 증가시켜야 함
+        setCurrentPage(prevState => prevState + 1);
         console.log('end loading!!');
     };
 
