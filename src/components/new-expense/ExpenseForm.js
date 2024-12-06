@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({ onAdd, onCancel }) => {
+const ExpenseForm = ({onAdd, onCancel}) => {
 
     // 입력칸에 있는 3개의 값을 각각의 상태값으로 관리
     // const [title, setTitle] = useState('');
@@ -14,7 +14,6 @@ const ExpenseForm = ({ onAdd, onCancel }) => {
         price: '',
         date: ''
     });
-
 
     // 오늘 날짜를 YYYY-MM-DD 형식으로 가져오는 함수
     const getTodayDate = () => {
